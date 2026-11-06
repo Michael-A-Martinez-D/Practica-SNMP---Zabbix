@@ -1,0 +1,23 @@
+en
+conf t
+hostname SW1
+no ip domain-lookup
+
+interface Gi0/0
+ description Hacia Router
+ no shutdown
+interface Gi0/1
+ description Hacia Zabbix
+ no shutdown
+
+interface Vlan1
+ ip address 14.10.10.2 255.255.255.240
+ no shutdown
+ exit
+ip default-gateway 14.10.10.1
+
+snmp-server community ZabbixRO RO
+snmp-server location Laboratorio
+snmp-server contact admin@lab.local
+
+do wr

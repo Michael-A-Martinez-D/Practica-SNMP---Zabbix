@@ -1,0 +1,22 @@
+en
+conf t
+hostname R1
+no ip domain-lookup
+
+interface e0/0
+ description Hacia Switch (LAN)
+ ip address 14.10.10.1 255.255.255.240
+ no shutdown
+ exit
+
+ip dhcp excluded-address 14.10.10.1 14.10.10.2
+ip dhcp pool LAN
+ network 14.10.10.0 255.255.255.240
+ default-router 14.10.10.1
+ exit
+
+snmp-server community ZabbixRO RO
+snmp-server location Laboratorio
+snmp-server contact admin@lab.local
+
+do wr
